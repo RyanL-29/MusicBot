@@ -22,7 +22,7 @@ import com.jagrosh.jmusicbot.Bot;
 import com.jagrosh.jmusicbot.commands.AdminCommand;
 import com.jagrosh.jmusicbot.settings.Settings;
 import com.jagrosh.jmusicbot.utils.FormatUtil;
-import net.dv8tion.jda.core.entities.VoiceChannel;
+import net.dv8tion.jda.api.entities.VoiceChannel;
 
 /**
  *
@@ -43,26 +43,26 @@ public class SetvcCmd extends AdminCommand
     {
         if(event.getArgs().isEmpty())
         {
-            event.reply(event.getClient().getError()+" Please include a voice channel or NONE");
+            event.reply(event.getClient().getError()+" 請包含一個語音頻道或空白");
             return;
         }
         Settings s = event.getClient().getSettingsFor(event.getGuild());
         if(event.getArgs().equalsIgnoreCase("none"))
         {
             s.setVoiceChannel(null);
-            event.reply(event.getClient().getSuccess()+" Music can now be played in any channel");
+            event.reply(event.getClient().getSuccess()+" 現在可以在任何頻道播放音樂");
         }
         else
         {
             List<VoiceChannel> list = FinderUtil.findVoiceChannels(event.getArgs(), event.getGuild());
             if(list.isEmpty())
-                event.reply(event.getClient().getWarning()+" No Voice Channels found matching \""+event.getArgs()+"\"");
+                event.reply(event.getClient().getWarning()+" 找不到相似的語音頻道 \""+event.getArgs()+"\"");
             else if (list.size()>1)
                 event.reply(event.getClient().getWarning()+FormatUtil.listOfVChannels(list, event.getArgs()));
             else
             {
                 s.setVoiceChannel(list.get(0));
-                event.reply(event.getClient().getSuccess()+" Music can now only be played in **"+list.get(0).getName()+"**");
+                event.reply(event.getClient().getSuccess()+" 音樂現在可以在 **"+list.get(0).getName()+"** 播放");
             }
         }
     }

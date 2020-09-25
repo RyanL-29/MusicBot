@@ -29,8 +29,8 @@ import com.jagrosh.jmusicbot.settings.SettingsManager;
 import com.jagrosh.jmusicbot.utils.OtherUtil;
 import java.awt.Color;
 import javax.security.auth.login.LoginException;
-import net.dv8tion.jda.core.*;
-import net.dv8tion.jda.core.entities.Game;
+import net.dv8tion.jda.api.*;
+import net.dv8tion.jda.api.entities.Activity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,8 +76,8 @@ public class JMusicBot
                                 "a music bot that is [easy to host yourself!](https://github.com/jagrosh/MusicBot) (v"+version+")",
                                 new String[]{"High-quality music playback", "FairQueue™ Technology", "Easy to host yourself"},
                                 RECOMMENDED_PERMS);
-        aboutCommand.setIsAuthor(false);
-        aboutCommand.setReplacementCharacter("\uD83C\uDFB6"); // 🎶
+        aboutCommand.setIsAuthor(true);
+        aboutCommand.setReplacementCharacter("<a:checker:720511635487195186>"); // 🎶
         
         // set up the command client
         CommandClientBuilder cb = new CommandClientBuilder()
@@ -136,11 +136,11 @@ public class JMusicBot
             cb.useDefaultGame();
         else if(config.getGame().getName().equalsIgnoreCase("none"))
         {
-            cb.setGame(null);
+            cb.setActivity(null);
             nogame = true;
         }
         else
-            cb.setGame(config.getGame());
+            cb.setActivity(config.getGame());
         
         if(!prompt.isNoGUI())
         {
@@ -165,11 +165,11 @@ public class JMusicBot
         {
             JDA jda = new JDABuilder(AccountType.BOT)
                     .setToken(config.getToken())
-                    .setAudioEnabled(true)
-                    .setGame(nogame ? null : Game.playing("loading..."))
+                   
+                    .setActivity(nogame ? null : Activity.playing("loading..."))
                     .setStatus(config.getStatus()==OnlineStatus.INVISIBLE || config.getStatus()==OnlineStatus.OFFLINE 
                             ? OnlineStatus.INVISIBLE : OnlineStatus.DO_NOT_DISTURB)
-                    .addEventListener(cb.build(), waiter, new Listener(bot))
+                    .addEventListeners(cb.build(), waiter, new Listener(bot))
                     .setBulkDeleteSplittingEnabled(true)
                     .build();
             bot.setJDA(jda);

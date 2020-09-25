@@ -21,9 +21,9 @@ import com.jagrosh.jdautilities.menu.OrderedMenu;
 import com.jagrosh.jmusicbot.Bot;
 import com.jagrosh.jmusicbot.audio.AudioHandler;
 import com.jagrosh.jmusicbot.commands.DJCommand;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.User;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -51,14 +51,14 @@ public class ForceRemoveCmd extends DJCommand
     {
         if (event.getArgs().isEmpty())
         {
-            event.replyError("You need to mention a user!");
+            event.replyError("你需要提及一個使用者!");
             return;
         }
 
         AudioHandler handler = (AudioHandler) event.getGuild().getAudioManager().getSendingHandler();
         if (handler.getQueue().isEmpty())
         {
-            event.replyError("There is nothing in the queue!");
+            event.replyError("序列中沒有任何東西!");
             return;
         }
 
@@ -68,7 +68,7 @@ public class ForceRemoveCmd extends DJCommand
 
         if(found.isEmpty())
         {
-            event.replyError("Unable to find the user!");
+            event.replyError("無法找到該使用者!");
             return;
         }
         else if(found.size()>1)
@@ -82,7 +82,7 @@ public class ForceRemoveCmd extends DJCommand
 
             builder
             .setSelection((msg, i) -> removeAllEntries(found.get(i-1).getUser(), event))
-            .setText("Found multiple users:")
+            .setText("找到多於一個的使用者:")
             .setColor(event.getSelfMember().getColor())
             .useNumbers()
             .setUsers(event.getAuthor())
@@ -109,11 +109,11 @@ public class ForceRemoveCmd extends DJCommand
         int count = ((AudioHandler) event.getGuild().getAudioManager().getSendingHandler()).getQueue().removeAll(target.getIdLong());
         if (count == 0)
         {
-            event.replyWarning("**"+target.getName()+"** doesn't have any songs in the queue!");
+            event.replyWarning("**"+target.getName()+"** 序列中沒有任何歌曲!");
         }
         else
         {
-            event.replySuccess("Successfully removed `"+count+"` entries from **"+target.getName()+"**#"+target.getDiscriminator()+".");
+            event.replySuccess("已成功移除 `"+count+"` 首歌。 由 **"+target.getName()+"**#"+target.getDiscriminator()+".");
         }
     }
 }

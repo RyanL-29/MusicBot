@@ -39,7 +39,7 @@ public class PrefixCmd extends AdminCommand
     {
         if(event.getArgs().isEmpty())
         {
-            event.replyError("Please include a prefix or NONE");
+            event.replyError("請包含一個前綴或者空白");
             return;
         }
         
@@ -47,12 +47,12 @@ public class PrefixCmd extends AdminCommand
         if(event.getArgs().equalsIgnoreCase("none"))
         {
             s.setPrefix(null);
-            event.replySuccess("Prefix cleared.");
+            event.replySuccess("前綴已清除.");
         }
         else
         {
             s.setPrefix(event.getArgs());
-            event.replySuccess("Custom prefix set to `" + event.getArgs() + "` on *" + event.getGuild().getName() + "*");
+            event.replySuccess("自訂前綴已設定 `" + event.getArgs() + "` 在 *" + event.getGuild().getName() + "*");
         }
     }
 }

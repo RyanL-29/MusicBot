@@ -41,10 +41,10 @@ public class PauseCmd extends DJCommand
         AudioHandler handler = (AudioHandler)event.getGuild().getAudioManager().getSendingHandler();
         if(handler.getPlayer().isPaused())
         {
-            event.replyWarning("The player is already paused! Use `"+event.getClient().getPrefix()+"play` to unpause!");
+            event.replyWarning("播放器已被暫停! 請使用 `"+event.getClient().getPrefix()+"play` 去繼續播放!");
             return;
         }
         handler.getPlayer().setPaused(true);
-        event.replySuccess("Paused **"+handler.getPlayer().getPlayingTrack().getInfo().title+"**. Type `"+event.getClient().getPrefix()+"play` to unpause!");
+        event.replySuccess("😋  已暫停 **"+handler.getPlayer().getPlayingTrack().getInfo().title+"**. 請輸入 `"+event.getClient().getPrefix()+"play` 去繼續播放!");
     }
 }

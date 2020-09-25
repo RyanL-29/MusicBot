@@ -56,11 +56,11 @@ public class RepeatCmd extends DJCommand
         }
         else
         {
-            event.replyError("Valid options are `on` or `off` (or leave empty to toggle)");
+            event.replyError("有效選項可以是 `on` 或 `off` (或者可以留下空白去啟動)");
             return;
         }
         settings.setRepeatMode(value);
-        event.replySuccess("Repeat mode is now `"+(value ? "ON" : "OFF")+"`");
+        event.replySuccess("重複模式現在是`"+(value ? "ON" : "OFF")+"`");
     }
 
     @Override

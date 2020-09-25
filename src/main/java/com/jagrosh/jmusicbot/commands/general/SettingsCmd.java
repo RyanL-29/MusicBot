@@ -20,11 +20,11 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 import com.jagrosh.jmusicbot.Bot;
 import com.jagrosh.jmusicbot.settings.Settings;
 import com.jagrosh.jmusicbot.utils.FormatUtil;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.MessageBuilder;
-import net.dv8tion.jda.core.entities.Role;
-import net.dv8tion.jda.core.entities.TextChannel;
-import net.dv8tion.jda.core.entities.VoiceChannel;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.VoiceChannel;
 
 /**
  *
@@ -55,12 +55,12 @@ public class SettingsCmd extends Command
         Role role = s.getRole(event.getGuild());
         EmbedBuilder ebuilder = new EmbedBuilder()
                 .setColor(event.getSelfMember().getColor())
-                .setDescription("Text Channel: " + (tchan == null ? "Any" : "**#" + tchan.getName() + "**")
-                        + "\nVoice Channel: " + (vchan == null ? "Any" : "**" + vchan.getName() + "**")
-                        + "\nDJ Role: " + (role == null ? "None" : "**" + role.getName() + "**")
-                        + "\nCustom Prefix: " + (s.getPrefix() == null ? "None" : "`" + s.getPrefix() + "`")
-                        + "\nRepeat Mode: **" + (s.getRepeatMode() ? "On" : "Off") + "**"
-                        + "\nDefault Playlist: " + (s.getDefaultPlaylist() == null ? "None" : "**" + s.getDefaultPlaylist() + "**")
+                .setDescription("文字頻道: " + (tchan == null ? "任何" : "**#" + tchan.getName() + "**")
+                        + "\n語音頻道: " + (vchan == null ? "任何" : "**" + vchan.getName() + "**")
+                        + "\nDJ 權限組: " + (role == null ? "空白" : "**" + role.getName() + "**")
+                        + "\n自定義前綴: " + (s.getPrefix() == null ? "空白" : "`" + s.getPrefix() + "`")
+                        + "\n重複模式: **" + (s.getRepeatMode() ? "On" : "Off") + "**"
+                        + "\n預設播放列表: " + (s.getDefaultPlaylist() == null ? "空白" : "**" + s.getDefaultPlaylist() + "**")
                         )
                 .setFooter(event.getJDA().getGuilds().size() + " servers | "
                         + event.getJDA().getGuilds().stream().filter(g -> g.getSelfMember().getVoiceState().inVoiceChannel()).count()

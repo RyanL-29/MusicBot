@@ -44,13 +44,13 @@ public class ShuffleCmd extends MusicCommand
         switch (s) 
         {
             case 0:
-                event.replyError("You don't have any music in the queue to shuffle!");
+                event.replyError("序列中沒有你點的歌曲可以隨機播放!");
                 break;
             case 1:
-                event.replyWarning("You only have one song in the queue!");
+                event.replyWarning("序列中只有一首你點的歌!");
                 break;
             default:
-                event.replySuccess("You successfully shuffled your "+s+" entries.");
+                event.replySuccess("您已成功將 "+s+" 首歌曲隨機播放.");
                 break;
         }
     }

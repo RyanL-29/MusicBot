@@ -26,10 +26,10 @@ import com.jagrosh.jmusicbot.audio.QueuedTrack;
 import com.jagrosh.jmusicbot.commands.MusicCommand;
 import com.jagrosh.jmusicbot.settings.Settings;
 import com.jagrosh.jmusicbot.utils.FormatUtil;
-import net.dv8tion.jda.core.MessageBuilder;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.exceptions.PermissionException;
+import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.exceptions.PermissionException;
 
 /**
  *
@@ -78,7 +78,7 @@ public class QueueCmd extends MusicCommand
             Message nowp = ah.getNowPlaying(event.getJDA());
             Message nonowp = ah.getNoMusicPlaying(event.getJDA());
             Message built = new MessageBuilder()
-                    .setContent(event.getClient().getWarning() + " There is no music in the queue!")
+                    .setContent(event.getClient().getWarning() + " 序列中沒有任何歌曲!")
                     .setEmbed((nowp==null ? nonowp : nowp).getEmbeds().get(0)).build();
             event.reply(built, m -> 
             {
@@ -112,8 +112,8 @@ public class QueueCmd extends MusicCommand
             sb.append(ah.getPlayer().isPaused() ? JMusicBot.PAUSE_EMOJI : JMusicBot.PLAY_EMOJI).append(" **")
                     .append(ah.getPlayer().getPlayingTrack().getInfo().title).append("**\n");
         }
-        return FormatUtil.filter(sb.append(success).append(" Current Queue | ").append(songslength)
-                .append(" entries | `").append(FormatUtil.formatTime(total)).append("` ")
+        return FormatUtil.filter(sb.append(success).append(" 當前序列 | ").append(songslength)
+                .append(" 首歌 | `").append(FormatUtil.formatTime(total)).append("` ")
                 .append(repeatmode ? "| " + REPEAT : "").toString());
     }
 }

@@ -44,19 +44,19 @@ public class PlaylistsCmd extends MusicCommand
             bot.getPlaylistLoader().createFolder();
         if(!bot.getPlaylistLoader().folderExists())
         {
-            event.reply(event.getClient().getWarning()+" Playlists folder does not exist and could not be created!");
+            event.reply(event.getClient().getWarning()+" 播放列表資料夾並不存在或尚未被創造!");
             return;
         }
         List<String> list = bot.getPlaylistLoader().getPlaylistNames();
         if(list==null)
-            event.reply(event.getClient().getError()+" Failed to load available playlists!");
+            event.reply(event.getClient().getError()+" 無法讀取可用的播放列表!");
         else if(list.isEmpty())
-            event.reply(event.getClient().getWarning()+" There are no playlists in the Playlists folder!");
+            event.reply(event.getClient().getWarning()+" 播放列表資料夾並沒有任何播放列表!");
         else
         {
-            StringBuilder builder = new StringBuilder(event.getClient().getSuccess()+" Available playlists:\n");
+            StringBuilder builder = new StringBuilder(event.getClient().getSuccess()+" 可用的播放列表:\n");
             list.forEach(str -> builder.append("`").append(str).append("` "));
-            builder.append("\nType `").append(event.getClient().getTextualPrefix()).append("play playlist <name>` to play a playlist");
+            builder.append("\nType `").append(event.getClient().getTextualPrefix()).append("play playlist <name>` 去播放一個播放列表");
             event.reply(builder.toString());
         }
     }

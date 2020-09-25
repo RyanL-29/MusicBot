@@ -22,7 +22,7 @@ import com.jagrosh.jmusicbot.Bot;
 import com.jagrosh.jmusicbot.commands.AdminCommand;
 import com.jagrosh.jmusicbot.settings.Settings;
 import com.jagrosh.jmusicbot.utils.FormatUtil;
-import net.dv8tion.jda.core.entities.Role;
+import net.dv8tion.jda.api.entities.Role;
 
 /**
  *
@@ -43,26 +43,26 @@ public class SetdjCmd extends AdminCommand
     {
         if(event.getArgs().isEmpty())
         {
-            event.reply(event.getClient().getError()+" Please include a role name or NONE");
+            event.reply(event.getClient().getError()+" 請包含一個權限組或空白");
             return;
         }
         Settings s = event.getClient().getSettingsFor(event.getGuild());
         if(event.getArgs().equalsIgnoreCase("none"))
         {
             s.setDJRole(null);
-            event.reply(event.getClient().getSuccess()+" DJ role cleared; Only Admins can use the DJ commands.");
+            event.reply(event.getClient().getSuccess()+" DJ 權限組已清除; 只有管理員才可以使用 DJ 指令.");
         }
         else
         {
             List<Role> list = FinderUtil.findRoles(event.getArgs(), event.getGuild());
             if(list.isEmpty())
-                event.reply(event.getClient().getWarning()+" No Roles found matching \""+event.getArgs()+"\"");
+                event.reply(event.getClient().getWarning()+" 找不到相似的權限組 \""+event.getArgs()+"\"");
             else if (list.size()>1)
                 event.reply(event.getClient().getWarning()+FormatUtil.listOfRoles(list, event.getArgs()));
             else
             {
                 s.setDJRole(list.get(0));
-                event.reply(event.getClient().getSuccess()+" DJ commands can now be used by users with the **"+list.get(0).getName()+"** role.");
+                event.reply(event.getClient().getSuccess()+" 權限組 **"+list.get(0).getName()+"** 現在已經可以使用 DJ 指令.");
             }
         }
     }

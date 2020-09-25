@@ -20,8 +20,8 @@ import com.jagrosh.jlyrics.LyricsClient;
 import com.jagrosh.jmusicbot.Bot;
 import com.jagrosh.jmusicbot.audio.AudioHandler;
 import com.jagrosh.jmusicbot.commands.MusicCommand;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.Permission;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
 
 /**
  *
@@ -55,7 +55,7 @@ public class LyricsCmd extends MusicCommand
         {
             if(lyrics == null)
             {
-                event.replyError("Lyrics for `" + title + "` could not be found!" + (event.getArgs().isEmpty() ? " Try entering the song name manually (`lyrics [song name]`)" : ""));
+                event.replyError("無法為 `" + title + "` 找到任何歌詞!" + (event.getArgs().isEmpty() ? " 請自行填寫歌名 (`lyrics [歌名]`)" : ""));
                 return;
             }
 
@@ -65,7 +65,7 @@ public class LyricsCmd extends MusicCommand
                     .setTitle(lyrics.getTitle(), lyrics.getURL());
             if(lyrics.getContent().length()>15000)
             {
-                event.replyWarning("Lyrics for `" + title + "` found but likely not correct: " + lyrics.getURL());
+                event.replyWarning("已為 `" + title + "` 找到歌詞但好像不正確: " + lyrics.getURL());
             }
             else if(lyrics.getContent().length()>2000)
             {

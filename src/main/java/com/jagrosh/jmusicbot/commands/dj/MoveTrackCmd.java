@@ -33,7 +33,7 @@ public class MoveTrackCmd extends DJCommand
         String[] parts = event.getArgs().split("\\s+", 2);
         if(parts.length < 2)
         {
-            event.replyError("Please include two valid indexes.");
+            event.replyError("請包含兩個正確的索引.");
             return;
         }
 
@@ -45,13 +45,13 @@ public class MoveTrackCmd extends DJCommand
         }
         catch (NumberFormatException e)
         {
-            event.replyError("Please provide two valid indexes.");
+            event.replyError("請包含兩個正確的索引.");
             return;
         }
 
         if (from == to)
         {
-            event.replyError("Can't move a track to the same position.");
+            event.replyError("不能把這首歌移動至序列中相同的位置.");
             return;
         }
 
@@ -60,13 +60,13 @@ public class MoveTrackCmd extends DJCommand
         FairQueue<QueuedTrack> queue = handler.getQueue();
         if (isUnavailablePosition(queue, from))
         {
-            String reply = String.format("`%d` is not a valid position in the queue!", from);
+            String reply = String.format("`%d` 不是一個正確的序列位置!", from);
             event.replyError(reply);
             return;
         }
         if (isUnavailablePosition(queue, to))
         {
-            String reply = String.format("`%d` is not a valid position in the queue!", to);
+            String reply = String.format("`%d` 不是一個正確的序列位置!", to);
             event.replyError(reply);
             return;
         }
@@ -74,7 +74,7 @@ public class MoveTrackCmd extends DJCommand
         // Move the track
         QueuedTrack track = queue.moveItem(from - 1, to - 1);
         String trackTitle = track.getTrack().getInfo().title;
-        String reply = String.format("Moved **%s** from position `%d` to `%d`.", trackTitle, from, to);
+        String reply = String.format("已移動 **%s** 由 `%d` 至 `%d`.", trackTitle, from, to);
         event.replySuccess(reply);
     }
 

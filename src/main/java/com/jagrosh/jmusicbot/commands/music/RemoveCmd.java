@@ -21,8 +21,8 @@ import com.jagrosh.jmusicbot.audio.AudioHandler;
 import com.jagrosh.jmusicbot.audio.QueuedTrack;
 import com.jagrosh.jmusicbot.commands.MusicCommand;
 import com.jagrosh.jmusicbot.settings.Settings;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.User;
 
 /**
  *
@@ -47,16 +47,16 @@ public class RemoveCmd extends MusicCommand
         AudioHandler handler = (AudioHandler)event.getGuild().getAudioManager().getSendingHandler();
         if(handler.getQueue().isEmpty())
         {
-            event.replyError("There is nothing in the queue!");
+            event.replyError("序列中沒有任何東西!");
             return;
         }
         if(event.getArgs().equalsIgnoreCase("all"))
         {
             int count = handler.getQueue().removeAll(event.getAuthor().getIdLong());
             if(count==0)
-                event.replyWarning("You don't have any songs in the queue!");
+                event.replyWarning("序列中沒有你點的歌!");
             else
-                event.replySuccess("Successfully removed your "+count+" entries.");
+                event.replySuccess("已從序列中移除了 "+count+" 首歌.");
             return;
         }
         int pos;
@@ -67,7 +67,7 @@ public class RemoveCmd extends MusicCommand
         }
         if(pos<1 || pos>handler.getQueue().size())
         {
-            event.replyError("Position must be a valid integer between 1 and "+handler.getQueue().size()+"!");
+            event.replyError("序列位置需要是一個介於 1 至 "+handler.getQueue().size()+" 的整數!");
             return;
         }
         Settings settings = event.getClient().getSettingsFor(event.getGuild());
@@ -78,7 +78,7 @@ public class RemoveCmd extends MusicCommand
         if(qt.getIdentifier()==event.getAuthor().getIdLong())
         {
             handler.getQueue().remove(pos-1);
-            event.replySuccess("Removed **"+qt.getTrack().getInfo().title+"** from the queue");
+            event.replySuccess("已經從序列中移除了 **"+qt.getTrack().getInfo().title+"** .");
         }
         else if(isDJ)
         {
@@ -89,12 +89,12 @@ public class RemoveCmd extends MusicCommand
             } catch(Exception e) {
                 u = null;
             }
-            event.replySuccess("Removed **"+qt.getTrack().getInfo().title
-                    +"** from the queue (requested by "+(u==null ? "someone" : "**"+u.getName()+"**")+")");
+            event.replySuccess("已經從序列中移除了 **"+qt.getTrack().getInfo().title
+                    +"** (提供者 "+(u==null ? "任何人" : "**"+u.getName()+"**")+")");
         }
         else
         {
-            event.replyError("You cannot remove **"+qt.getTrack().getInfo().title+"** because you didn't add it!");
+            event.replyError("你不能移除 **"+qt.getTrack().getInfo().title+"** 因為這並不是你點的歌!");
         }
     }
 }

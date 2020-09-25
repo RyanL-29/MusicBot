@@ -19,7 +19,7 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 import com.jagrosh.jmusicbot.Bot;
 import com.jagrosh.jmusicbot.audio.AudioHandler;
 import com.jagrosh.jmusicbot.commands.MusicCommand;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.entities.User;
 
 /**
  *
@@ -43,7 +43,7 @@ public class SkipCmd extends MusicCommand
         AudioHandler handler = (AudioHandler)event.getGuild().getAudioManager().getSendingHandler();
         if(event.getAuthor().getIdLong()==handler.getRequester())
         {
-            event.reply(event.getClient().getSuccess()+" Skipped **"+handler.getPlayer().getPlayingTrack().getInfo().title+"**");
+            event.reply(event.getClient().getSuccess()+" 已略過 **"+handler.getPlayer().getPlayingTrack().getInfo().title+"**");
             handler.getPlayer().stopTrack();
         }
         else
@@ -52,21 +52,21 @@ public class SkipCmd extends MusicCommand
                     .filter(m -> !m.getUser().isBot() && !m.getVoiceState().isDeafened()).count();
             String msg;
             if(handler.getVotes().contains(event.getAuthor().getId()))
-                msg = event.getClient().getWarning()+" You already voted to skip this song `[";
+                msg = event.getClient().getWarning()+" 你已經投了票去略過這首歌 `[";
             else
             {
-                msg = event.getClient().getSuccess()+" You voted to skip the song `[";
+                msg = event.getClient().getSuccess()+" 你投了票去略過這首歌 `[";
                 handler.getVotes().add(event.getAuthor().getId());
             }
             int skippers = (int)event.getSelfMember().getVoiceState().getChannel().getMembers().stream()
                     .filter(m -> handler.getVotes().contains(m.getUser().getId())).count();
-            int required = (int)Math.ceil(listeners * .55);
-            msg+= skippers+" votes, "+required+"/"+listeners+" needed]`";
+            int required = (int)Math.ceil(listeners * .25);
+            msg+= skippers+" 已經投票, "+required+" 需要]`";
             if(skippers>=required)
             {
                 User u = event.getJDA().getUserById(handler.getRequester());
-                msg+="\n"+event.getClient().getSuccess()+" Skipped **"+handler.getPlayer().getPlayingTrack().getInfo().title
-                    +"**"+(handler.getRequester()==0 ? "" : " (requested by "+(u==null ? "someone" : "**"+u.getName()+"**")+")");
+                msg+="\n"+event.getClient().getSuccess()+" 已略過 **"+handler.getPlayer().getPlayingTrack().getInfo().title
+                    +"**"+(handler.getRequester()==0 ? "" : " (提供者: "+(u==null ? "任何人" : "**"+u.getName()+"**")+")");
                 handler.getPlayer().stopTrack();
             }
             event.reply(msg);

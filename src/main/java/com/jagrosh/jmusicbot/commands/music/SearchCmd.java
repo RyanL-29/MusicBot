@@ -28,8 +28,8 @@ import com.jagrosh.jmusicbot.audio.AudioHandler;
 import com.jagrosh.jmusicbot.audio.QueuedTrack;
 import com.jagrosh.jmusicbot.commands.MusicCommand;
 import com.jagrosh.jmusicbot.utils.FormatUtil;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Message;
 
 /**
  *
@@ -64,10 +64,10 @@ public class SearchCmd extends MusicCommand
     {
         if(event.getArgs().isEmpty())
         {
-            event.replyError("Please include a query.");
+            event.replyError("請包含一個查詢選項.");
             return;
         }
-        event.reply(searchingEmoji+" Searching... `["+event.getArgs()+"]`", 
+        event.reply(searchingEmoji+" 搜尋中... `["+event.getArgs()+"]`", 
                 m -> bot.getPlayerManager().loadItemOrdered(event.getGuild(), searchPrefix + event.getArgs(), new ResultHandler(m,event)));
     }
     
@@ -87,37 +87,37 @@ public class SearchCmd extends MusicCommand
         {
             if(bot.getConfig().isTooLong(track))
             {
-                m.editMessage(FormatUtil.filter(event.getClient().getWarning()+" This track (**"+track.getInfo().title+"**) is longer than the allowed maximum: `"
+                m.editMessage(FormatUtil.filter(event.getClient().getWarning()+" 這首歌 (**"+track.getInfo().title+"**) 已超出歌曲最大限定長度: `"
                         +FormatUtil.formatTime(track.getDuration())+"` > `"+bot.getConfig().getMaxTime()+"`")).queue();
                 return;
             }
             AudioHandler handler = (AudioHandler)event.getGuild().getAudioManager().getSendingHandler();
             int pos = handler.addTrack(new QueuedTrack(track, event.getAuthor()))+1;
-            m.editMessage(FormatUtil.filter(event.getClient().getSuccess()+" Added **"+track.getInfo().title
-                    +"** (`"+FormatUtil.formatTime(track.getDuration())+"`) "+(pos==0 ? "to begin playing" 
-                        : " to the queue at position "+pos))).queue();
+            m.editMessage(FormatUtil.filter(event.getClient().getSuccess()+" 已增加 **"+track.getInfo().title
+                    +"** (`"+FormatUtil.formatTime(track.getDuration())+"`) "+(pos==0 ? "開始播放" 
+                        : " 至到序列中位置 "+pos))).queue();
         }
 
         @Override
         public void playlistLoaded(AudioPlaylist playlist)
         {
             builder.setColor(event.getSelfMember().getColor())
-                    .setText(FormatUtil.filter(event.getClient().getSuccess()+" Search results for `"+event.getArgs()+"`:"))
+                    .setText(FormatUtil.filter(event.getClient().getSuccess()+" 搜尋結果: `"+event.getArgs()+"`:"))
                     .setChoices(new String[0])
                     .setSelection((msg,i) -> 
                     {
                         AudioTrack track = playlist.getTracks().get(i-1);
                         if(bot.getConfig().isTooLong(track))
                         {
-                            event.replyWarning("This track (**"+track.getInfo().title+"**) is longer than the allowed maximum: `"
+                            event.replyWarning("這首歌 (**"+track.getInfo().title+"**) 已超出歌曲最大限定長度: `"
                                     +FormatUtil.formatTime(track.getDuration())+"` > `"+bot.getConfig().getMaxTime()+"`");
                             return;
                         }
                         AudioHandler handler = (AudioHandler)event.getGuild().getAudioManager().getSendingHandler();
                         int pos = handler.addTrack(new QueuedTrack(track, event.getAuthor()))+1;
-                        event.replySuccess("Added **" + FormatUtil.filter(track.getInfo().title)
-                                + "** (`" + FormatUtil.formatTime(track.getDuration()) + "`) " + (pos==0 ? "to begin playing" 
-                                    : " to the queue at position "+pos));
+                        event.replySuccess("已增加 **" + FormatUtil.filter(track.getInfo().title)
+                                + "** (`" + FormatUtil.formatTime(track.getDuration()) + "`) " + (pos==0 ? "開始播放" 
+                                    : " 至到序列中位置 "+pos));
                     })
                     .setCancel((msg) -> {})
                     .setUsers(event.getAuthor())
@@ -133,16 +133,16 @@ public class SearchCmd extends MusicCommand
         @Override
         public void noMatches() 
         {
-            m.editMessage(FormatUtil.filter(event.getClient().getWarning()+" No results found for `"+event.getArgs()+"`.")).queue();
+            m.editMessage(FormatUtil.filter(event.getClient().getWarning()+" 沒有任何搜尋結果: `"+event.getArgs()+"`.")).queue();
         }
 
         @Override
         public void loadFailed(FriendlyException throwable) 
         {
             if(throwable.severity==Severity.COMMON)
-                m.editMessage(event.getClient().getError()+" Error loading: "+throwable.getMessage()).queue();
+                m.editMessage(event.getClient().getError()+" 加載錯誤: "+throwable.getMessage()).queue();
             else
-                m.editMessage(event.getClient().getError()+" Error loading track.").queue();
+                m.editMessage(event.getClient().getError()+" 加載歌曲錯誤.").queue();
         }
     }
 }
