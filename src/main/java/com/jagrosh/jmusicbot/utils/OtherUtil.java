@@ -153,10 +153,10 @@ public class OtherUtil
     public static String checkVersion(Prompt prompt)
     {
         // Get current version number
-        String version = "0.2.9_zh_HK";
+        //String version = "0.2.9_zh_HK";
         
         // Check for new version
-        //String latestVersion = getLatestVersion();
+        String version = getCurrentVersion();
         
         //if(latestVersion!=null && !latestVersion.equals(version))
         //{
