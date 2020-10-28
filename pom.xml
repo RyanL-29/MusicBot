@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.jagrosh</groupId>
     <artifactId>JMusicBot</artifactId>
-    <version>0.3.2_zh_HK_Public_Preview</version>
+    <version>0.3.3_zh_HK_Public</version>
     <packaging>jar</packaging>
     
     <repositories>
@@ -28,7 +28,7 @@
         <dependency>
             <groupId>net.dv8tion</groupId> 
             <artifactId>JDA</artifactId> 
-            <version>4.2.0_168</version>
+            <version>4.2.0_212</version>
         </dependency>
         <dependency>
             <groupId>com.github.Devoxin</groupId>
@@ -64,7 +64,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>4.13.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>

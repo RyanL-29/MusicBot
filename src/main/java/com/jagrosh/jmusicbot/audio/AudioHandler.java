@@ -30,6 +30,7 @@ import com.jagrosh.jmusicbot.queue.FairQueue;
 import com.jagrosh.jmusicbot.settings.Settings;
 import com.jagrosh.jmusicbot.utils.FormatUtil;
 import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioTrack;
+import java.nio.ByteBuffer; 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.MessageBuilder;
@@ -37,7 +38,7 @@ import net.dv8tion.jda.api.audio.AudioSendHandler;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
-import java.nio.*; 
+
 /**
  *
  * @author John Grosh <john.a.grosh@gmail.com>
@@ -267,22 +268,14 @@ public class AudioHandler extends AudioEventAdapter implements AudioSendHandler
     @Override
     public boolean canProvide() 
     {
-        if (lastFrame == null)
-            lastFrame = audioPlayer.provide();
-
+        lastFrame = audioPlayer.provide();
         return lastFrame != null;
     }
-    
+
     @Override
     public ByteBuffer provide20MsAudio() 
     {
-        if (lastFrame == null) 
-            lastFrame = audioPlayer.provide();
-
-        byte[] data = lastFrame != null ? lastFrame.getData() : null;
-        lastFrame = null;
-        ByteBuffer byteBuffer = ByteBuffer.wrap(data);
-        return byteBuffer;
+        return ByteBuffer.wrap(lastFrame.getData());
     }
 
     @Override

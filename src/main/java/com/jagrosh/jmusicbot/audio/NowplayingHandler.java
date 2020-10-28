@@ -109,12 +109,13 @@ public class NowplayingHandler
         if(tchan!=null && guild.getSelfMember().hasPermission(tchan, Permission.MANAGE_CHANNEL))
         {
             String otherText;
-            if(tchan.getTopic()==null || tchan.getTopic().isEmpty())
+            String topic = tchan.getTopic();
+            if(topic==null || topic.isEmpty())
                 otherText = "\u200B";
-            else if(tchan.getTopic().contains("\u200B"))
-                otherText = tchan.getTopic().substring(tchan.getTopic().lastIndexOf("\u200B"));
+            else if(topic.contains("\u200B"))
+                otherText = topic.substring(topic.lastIndexOf("\u200B"));
             else
-                otherText = "\u200B\n "+tchan.getTopic();
+                otherText = "\u200B\n "+topic;
             String text = handler.getTopicFormat(bot.getJDA()) + otherText;
             if(!text.equals(tchan.getTopic()))
             {
