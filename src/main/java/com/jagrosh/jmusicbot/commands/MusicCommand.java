@@ -89,7 +89,7 @@ public abstract class MusicCommand extends Command
                 }
                 catch(PermissionException ex) 
                 {
-                    event.reply(event.getClient().getError()+" 我無法連線至 **"+userState.getChannel().getName()+"**!");
+                    event.reply(event.getClient().getError()+" 無法連線至 **"+userState.getChannel().getName()+"**!");
                     return;
                 }
             }
