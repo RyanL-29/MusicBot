@@ -3,10 +3,15 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.jagrosh</groupId>
     <artifactId>ANiMusic</artifactId>
-    <version>0.3.8_zh_HK_ANi_Public</version>
+    <version>0.3.9_zh_HK_ANi_Public</version>
     <packaging>jar</packaging>
     
     <repositories>
+        <repository>
+            <id>dv8tion</id>
+            <name>m2-dv8tion</name>
+            <url>https://m2.dv8tion.net/releases</url>
+        </repository>
         <repository>
             <id>central</id>
             <name>bintray</name>
@@ -28,7 +33,7 @@
         <dependency>
             <groupId>net.dv8tion</groupId> 
             <artifactId>JDA</artifactId> 
-            <version>4.2.0_241</version>
+            <version>4.2.1_253</version>
         </dependency>
         <dependency>
             <groupId>com.sedmelluq</groupId>
