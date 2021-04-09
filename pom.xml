@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.jagrosh</groupId>
     <artifactId>ANiMusic</artifactId>
-    <version>0.3.9_zh_HK_ANi_Public</version>
+    <version>0.4.0_zh_HK_ANi_Public</version>
     <packaging>jar</packaging>
     
     <repositories>
@@ -38,7 +38,7 @@
         <dependency>
             <groupId>com.sedmelluq</groupId>
             <artifactId>lavaplayer</artifactId>
-            <version>1.3.73</version>
+            <version>1.3.75</version>
         </dependency>
         <dependency>
             <groupId>com.sedmelluq</groupId>
