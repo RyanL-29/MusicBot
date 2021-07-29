@@ -30,7 +30,7 @@ import com.jagrosh.jmusicbot.queue.FairQueue;
 import com.jagrosh.jmusicbot.settings.Settings;
 import com.jagrosh.jmusicbot.utils.FormatUtil;
 import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioTrack;
-import java.nio.ByteBuffer; 
+import java.nio.ByteBuffer;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.MessageBuilder;
@@ -265,6 +265,25 @@ public class AudioHandler extends AudioEventAdapter implements AudioSendHandler
     }
     
     // Audio Send Handler methods
+    /*@Override
+    public boolean canProvide() 
+    {
+        lastFrame = audioPlayer.provide();
+        return lastFrame != null;
+    }
+
+    @Override
+    public ByteBuffer provide20MsAudio() 
+    {
+        if (lastFrame == null) 
+            lastFrame = audioPlayer.provide();
+
+        byte[] data = lastFrame != null ? lastFrame.getData() : null;
+        lastFrame = null;
+
+        return data;
+    }*/
+    
     @Override
     public boolean canProvide() 
     {

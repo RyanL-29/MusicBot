@@ -98,6 +98,11 @@ public class Bot
     {
         return nowplaying;
     }
+
+    public AloneInVoiceHandler getAloneInVoiceHandler()
+    {
+        return aloneInVoiceHandler;
+    }
     
     public AloneInVoiceHandler getAloneInVoiceHandler()
     {

@@ -299,6 +299,11 @@ public class BotConfig
     {
         return FormatUtil.formatTime(maxSeconds * 1000);
     }
+
+    public long getAloneTimeUntilStop()
+    {
+        return aloneTimeUntilStop;
+    }
     
     public long getAloneTimeUntilStop()
     {
