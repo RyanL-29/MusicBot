@@ -91,7 +91,13 @@ public class Listener extends ListenerAdapter
     {
         bot.getNowplayingHandler().onMessageDelete(event.getGuild(), event.getMessageIdLong());
     }
-    
+
+    @Override
+    public void onGuildVoiceUpdate(@NotNull GuildVoiceUpdateEvent event)
+    {
+        bot.getAloneInVoiceHandler().onVoiceUpdate(event);
+    }
+
     @Override
     public void onGuildVoiceUpdate(@NotNull GuildVoiceUpdateEvent event)
     {
