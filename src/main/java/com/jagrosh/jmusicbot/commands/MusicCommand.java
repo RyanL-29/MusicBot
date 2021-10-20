@@ -70,7 +70,8 @@ public abstract class MusicCommand extends Command
             GuildVoiceState userState = event.getMember().getVoiceState();
             if(!userState.inVoiceChannel() || userState.isDeafened() || (current!=null && !userState.getChannel().equals(current)))
             {
-                event.replyError("你需要在 "+(current==null ? "一個語音頻道" : "**"+current.getName()+"**")+" 去使用這個指令!");
+                event.replyError("你需要在 "+(current==null ? "一個語音頻道" : "**"+current.getAsMention()+"**")+" 去使用這個指令!");
+
                 return;
             }
 
@@ -89,7 +90,8 @@ public abstract class MusicCommand extends Command
                 }
                 catch(PermissionException ex) 
                 {
-                    event.reply(event.getClient().getError()+" 無法連線至 **"+userState.getChannel().getName()+"**!");
+                    event.reply(event.getClient().getError()+" 無法連線至 **"+userState.getChannel().getAsMention()+"**!");
+
                     return;
                 }
             }

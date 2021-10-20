@@ -62,7 +62,8 @@ public class SetvcCmd extends AdminCommand
             else
             {
                 s.setVoiceChannel(list.get(0));
-                event.reply(event.getClient().getSuccess()+" 音樂現在可以在 **"+list.get(0).getName()+"** 播放");
+
+                event.reply(event.getClient().getSuccess()+" 音樂現在可以在 **"+list.get(0).getAsMention() + "** 播放");
             }
         }
     }

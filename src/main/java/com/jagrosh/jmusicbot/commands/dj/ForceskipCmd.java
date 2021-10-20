@@ -18,6 +18,7 @@ package com.jagrosh.jmusicbot.commands.dj;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import com.jagrosh.jmusicbot.Bot;
 import com.jagrosh.jmusicbot.audio.AudioHandler;
+import com.jagrosh.jmusicbot.audio.RequestMetadata;
 import com.jagrosh.jmusicbot.commands.DJCommand;
 import net.dv8tion.jda.api.entities.User;
 
@@ -40,9 +41,9 @@ public class ForceskipCmd extends DJCommand
     public void doCommand(CommandEvent event) 
     {
         AudioHandler handler = (AudioHandler)event.getGuild().getAudioManager().getSendingHandler();
-        User u = event.getJDA().getUserById(handler.getRequester());
+        RequestMetadata rm = handler.getRequestMetadata();
         event.reply(event.getClient().getSuccess()+" 已略過 **"+handler.getPlayer().getPlayingTrack().getInfo().title
-                +"** (提供者 "+(u==null ? "任何人" : "**"+u.getName()+"**")+")");
+                +"** "+(rm.getOwner() == 0L ? "(自動序列)" : "(提供者 **" + rm.user.username + "**)"));
         handler.getPlayer().stopTrack();
     }
 }

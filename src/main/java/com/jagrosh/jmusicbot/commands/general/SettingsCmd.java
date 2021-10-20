@@ -18,6 +18,7 @@ package com.jagrosh.jmusicbot.commands.general;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import com.jagrosh.jmusicbot.Bot;
+import com.jagrosh.jmusicbot.settings.RepeatMode;
 import com.jagrosh.jmusicbot.settings.Settings;
 import com.jagrosh.jmusicbot.utils.FormatUtil;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -59,8 +60,11 @@ public class SettingsCmd extends Command
                         + "\n語音頻道: " + (vchan == null ? "任何" : "**" + vchan.getName() + "**")
                         + "\nDJ 權限組: " + (role == null ? "空白" : "**" + role.getName() + "**")
                         + "\n自定義前綴: " + (s.getPrefix() == null ? "空白" : "`" + s.getPrefix() + "`")
-                        + "\n重複模式: **" + (s.getRepeatMode() ? "On" : "Off") + "**"
+                        + "\nRepeat Mode: " + (s.getRepeatMode() == RepeatMode.OFF
+                                                ? s.getRepeatMode().getUserFriendlyName()
+                                                : "**"+s.getRepeatMode().getUserFriendlyName()+"**")
                         + "\n預設播放列表: " + (s.getDefaultPlaylist() == null ? "空白" : "**" + s.getDefaultPlaylist() + "**")
+
                         )
                 .setFooter(event.getJDA().getGuilds().size() + " servers | "
                         + event.getJDA().getGuilds().stream().filter(g -> g.getSelfMember().getVoiceState().inVoiceChannel()).count()
