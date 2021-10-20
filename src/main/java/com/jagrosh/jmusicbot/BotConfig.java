@@ -306,11 +306,6 @@ public class BotConfig
         return aloneTimeUntilStop;
     }
     
-    public long getAloneTimeUntilStop()
-    {
-        return aloneTimeUntilStop;
-    }
-    
     public boolean isTooLong(AudioTrack track)
     {
         if(maxSeconds<=0)

@@ -104,11 +104,6 @@ public class Bot
         return aloneInVoiceHandler;
     }
     
-    public AloneInVoiceHandler getAloneInVoiceHandler()
-    {
-        return aloneInVoiceHandler;
-    }
-    
     public JDA getJDA()
     {
         return jda;
